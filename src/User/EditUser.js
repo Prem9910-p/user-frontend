@@ -1,0 +1,96 @@
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+
+const EditUser = () => {
+
+let navigate=useNavigate()
+
+const {id}=useParams()
+console.log(id)
+const [user, setUser]=useState({ 
+    name:"",
+    age:"",
+    email:""
+
+})
+
+const {name, age, email}=user;
+
+const onInputChange=(e)=>{
+    setUser({...user,[e.target.name]:e.target.value})
+}
+useEffect(()=>{
+    loadUser();
+},[id])
+
+ const onSubmit=async(e)=>{
+e.preventDefault()
+await axios.put( `http://localhost:8080/user/id?id=${id}`,user)
+navigate("/")
+ }
+
+ const loadUser=async () => {
+    
+    const result = await axios.get(`http://localhost:8080/user/id?id=${id}`);
+
+    setUser(result.data)
+ }
+
+  return (
+    <div>
+     <div className='container'>
+        <div className='row'>
+          <div className='col-md-6 offset-md-3 border rounded p-4 mt-2 shadow'>
+            <h2 className='text-center m-4'>Edit User</h2>
+            <div className='mb-3'>
+                <form onSubmit={(e)=>onSubmit(e)}>
+                <label htmlFor='name' className='form-label'> name</label>
+                <input 
+                type='text'
+                className='form-control'
+                placeholder='enter your name'
+                name='name'
+                required
+                value={name}
+                onChange={(e)=>onInputChange(e)}
+                ></input>
+
+                <label htmlFor='age' className='form-label'> age</label>
+                <input 
+                type='number'
+                min="0" 
+                max="100" 
+                className='form-control'
+                placeholder='enter your age'
+                name='age'
+                required
+                value={age}
+                onChange={(e)=>onInputChange(e)}
+                ></input>
+
+                <label htmlFor='email' className='form-label'> email</label>
+                <input 
+                type='email'
+                className='form-control'
+                placeholder='enter your email'
+                name='email'
+                required
+                value={email}
+                onChange={(e)=>onInputChange(e)}
+                ></input>
+                <button type='submit' className='btn btn-outline-primary mt-3'>Submit</button>
+                <Link to={"/"} className='btn btn-outline-danger mt-3 mx-3'>Cancel</Link>
+                </form>
+            </div>
+
+
+          </div>
+        </div>
+    </div>
+
+    </div>
+  )
+}
+
+export default EditUser
