@@ -5,7 +5,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 const EditUser = () => {
 
   
-const  API_BASE_URL= process.env.REACT_APP_API_BASE_URL;
+
 
 let navigate=useNavigate()
 
@@ -29,13 +29,13 @@ useEffect(()=>{
 
  const onSubmit=async(e)=>{
 e.preventDefault()
-await axios.put( `${API_BASE_URL}/user/id?id=${id}`,user)
+await axios.put( `https://xyz-production-99f9.up.railway.app/user/id?id=${id}`,user)
 navigate("/")
  }
 
  const loadUser=async () => {
     
-    const result = await axios.get(`${API_BASE_URL}/user/id?id=${id}`);
+    const result = await axios.get(`https://xyz-production-99f9.up.railway.app/user/id?id=${id}`);
 
     setUser(result.data)
  }

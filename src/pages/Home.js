@@ -1,28 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios";
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
 
  
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 
     const [users, setUsers]=useState([]);
 
     // const {id}=useParams()
     useEffect(()=>{
     loadUser();
-    },[])
+    },[]);
+
     const loadUser=async()=>{
-        const result=await axios.get( `${API_BASE_URL}/user/all`);
+        const result=await axios.get("https://xyz-production-99f9.up.railway.app/user/all");
         setUsers(result.data)
         
+  }
 
-    }
+
+
     const deleteUser=async (param) => {
-        await axios.delete(`${API_BASE_URL}/user/id?id=${param}`)
+        await axios.delete(`https://xyz-production-99f9.up.railway.app/user/id?id=${param}`)
         loadUser()
     }
+    
 
   return (
     <div className='container'>
