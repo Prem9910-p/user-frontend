@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Home = () => {
 
  
-
+const API_BASE_URL ="https://xyz-production-99f9.up.railway.app";
 
     const [users, setUsers]=useState([]);
 
@@ -15,7 +15,7 @@ const Home = () => {
     },[]);
 
     const loadUser=async()=>{
-        const result=await axios.get("https://xyz-production-99f9.up.railway.app/user/all");
+        const result=await axios.get(`${API_BASE_URL}/user/all`);
         setUsers(result.data)
         
   }
