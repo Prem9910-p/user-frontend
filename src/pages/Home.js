@@ -7,7 +7,7 @@ const Home = () => {
  
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-    const [user, setUser]=useState([]);
+    const [users, setUsers]=useState([]);
 
     // const {id}=useParams()
     useEffect(()=>{
@@ -15,7 +15,7 @@ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
     },[])
     const loadUser=async()=>{
         const result=await axios.get( `${API_BASE_URL}/user/all`);
-        setUser(result.data)
+        setUsers(result.data)
         
 
     }
@@ -38,23 +38,28 @@ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
     </tr>
   </thead>
   <tbody>
-    {
-       user.map((user,index)=>(
-        <tr  key={user.id||index}>
+    { users.length>0?(
+       users.map((users,index)=>(
+        <tr  key={users.id||index}>
       <th scope="row" >{index+1}</th>
-      <td>{user.name}</td>
-      <td>{user.age}</td>
-      <td>{user.email}</td>
+      <td>{users.name}</td>
+      <td>{users.age}</td>
+      <td>{users.email}</td>
       <td>
         
-    <Link to={`/edituser/${user.id}`} className="btn btn-outline-info mx-2">Edit</Link>
-       <button type="button" className="btn btn-outline-danger mx-2" onClick={()=>deleteUser(user.id)}>Delete</button>
+    <Link to={`/edituser/${users.id}`} className="btn btn-outline-info mx-2">Edit</Link>
+       <button type="button" className="btn btn-outline-danger mx-2" onClick={()=>deleteUser(users.id)}>Delete</button>
 
       </td>
     </tr>
     
 
        ))
+      ):(
+        <tr>
+          <td>no user found</td>
+        </tr>
+      )
 
     }
   </tbody>
