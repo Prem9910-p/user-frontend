@@ -4,6 +4,9 @@ import { Link, useParams } from 'react-router-dom';
 
 const Home = () => {
 
+ 
+const PI_BASE_URLA = process.env.REACT_APP_API_BASE_URL;
+
     const [user, setUser]=useState([]);
 
     // const {id}=useParams()
@@ -11,13 +14,13 @@ const Home = () => {
     loadUser();
     },[])
     const loadUser=async()=>{
-        const result=await axios.get(" http://localhost:8080/user/all");
+        const result=await axios.get(" `${PI_BASE_URLA}`/user/all");
         setUser(result.data)
         
 
     }
     const deleteUser=async (param) => {
-        await axios.delete(`http://localhost:8080/user/id?id=${param}`)
+        await axios.delete(`${PI_BASE_URLA}/user/id?id=${param}`)
         loadUser()
     }
 

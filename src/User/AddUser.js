@@ -4,6 +4,9 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const AddUser = () => {
 
+  
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 let navigate=useNavigate()
 
 const [user, setUser]=useState({ 
@@ -20,7 +23,7 @@ const onInputChange=(e)=>{
 }
  const onSubmit=async(e)=>{
 e.preventDefault()
-await axios.post(" http://localhost:8080/user/add",user)
+await axios.post(" `${API_BASE_URL}`/user/add",user)
 navigate("/")
  }
 
